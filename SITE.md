@@ -1,82 +1,90 @@
-# savana-santos Website Reference
+# Savana Santos — Site Brand System
 
-## Business Info
-- Business Name:
-- Industry:
-- Location:
-- Phone:
-- Email:
-- Website URL:
-- Google Business Profile:
+## Project
+Single-page release site for the artist Savana Santos, built around the "4 Minutes" single and the broader Soulmates era. This is a release site, not an evergreen artist site.
 
-## Positioning
-(Single paragraph describing what the business is, who they serve, and what makes them different)
+## Artist
+Savana Santos. Nashville-based singer-songwriter and producer, originally from Quincy, Illinois. Signed to Big Machine via The Valory Music Co. Formerly lead vocalist of the viral trio Avenue Beat. Confessional, diary-like, witty bedroom pop. She styles her titles in lowercase.
 
-## Brand Voice
-(Tone rules, vocabulary preferences, things to avoid)
+## Site scope
+A single scrolling page. Sections in order:
+1. Hero
+2. Covers
+3. About
+4. Subscribe
 
-## Visual Direction
-(2 to 4 specific reference points: brands, magazines, design eras. Anti-patterns to avoid for this specific project.)
+No other pages. No streaming links on the hero or covers for now.
 
-## Colors
-- Background:
-- Primary Text:
-- Accent:
-- Secondary Accent:
+## Color tokens
+- Background, dark green: #1A2100
+- Headline and accent, orange: #FF7B1E
+- Sub-head and body text, cream: #FFF6E6
+
+Dark green is the dominant background. Cream-background sections invert to dark green text. Orange is for headlines and accents only, never a fill-everything button color. Define these as theme tokens.
 
 ## Typography
-- Display Font:
-- Body Font:
-- Sizing scale for hero, section headers, body
+- Headlines: Burial TM, served via the Adobe Fonts kit at use.typekit.net, not self-hosted.
+- Sub-heads: Zine TM, served via the same Adobe Fonts kit, not self-hosted.
+- Body: Source Serif 4, Light weight 300, via next/font/google (free and open-source).
+- Handwritten display (the Soulmates wordmark and track titles): use the provided wordmark and logo image assets, not a web font. The Mazzy local .ttf files are desktop-license only and are not loaded as web fonts.
 
-## Logo
-(Description of the logo direction, where logo files live in /public)
+## Logo usage
+All three logo files are the same "Savana Santos" wordmark in different colors. Files live in public/logos.
+- ColoredLogo: the wordmark in cream (#FFF6E6). This is the primary mark on dark green backgrounds (header and footer). It matches the cream body text for a cohesive, warm look.
+- WhiteLogo: the wordmark in pure white. Held in reserve, only for a spot that needs maximum contrast.
+- BlackLogo: the wordmark in dark near-black. Use on cream or orange backgrounds.
 
-## Pages
-- [ ] Home
-- [ ] About
-- [ ] Services
-- [ ] Contact
-- [ ] (add as needed)
+## Tone of voice
+- Lowercase or sentence case. Never title-case marketing speak.
+- First person, written like a diary entry or a text from a friend.
+- Short, plain, dry, a little self-deprecating.
+- No hype, no exclamation spam, no "stream now" energy.
 
-## CTAs
-- Primary:
-- Secondary:
+## Visual references (anchors)
+- Cut-and-paste zine and riot grrrl photocopy: tape, handwriting, slightly crooked. Covers are arranged like taped-down photos, not a card grid.
+- Faye Webster restraint: generous breathing room, nothing busy.
+- Film-photo scrapbook nostalgia, Olivia Rodrigo GUTS-era handwriting: keep grain and imperfection, lean on Mazzy handwriting for display moments.
 
-## Content Status
+## Anti-patterns (do not do)
+- No three-column card grid for the covers
+- No pill buttons or gradients
+- No lucide icons inside colored circles
+- No glassmorphism or drop-shadow startup polish
+- No heavy or parallax over-animation
+- Orange is accent and headline only, not a button fill everywhere
+- Do not clean up the imperfection or force symmetry
 
-### Text Content
-- [ ] Business bio / owner bio: [status]
-- [ ] Service descriptions: [status per service]
-- [ ] Testimonials: [count real vs placeholder]
-- [ ] About page copy: [status]
-- [ ] Contact form auto-reply: [final or placeholder]
+## Footer
+Credit line: © Borchetta Entertainment Group, LLC d/b/a Big Machine Records
 
-### Visual Content
-- [ ] Logo files (final version in /public): [status]
-- [ ] Owner portrait: [status]
-- [ ] Gallery/work photos: [count real vs placeholder]
-- [ ] Service-specific images: [status]
-- [ ] OG image: [auto-generated or custom]
+Legal links:
+- Terms: https://www.bigmachinerecords.com/terms
+- Do Not Sell My Personal Information: https://www.bigmachinerecords.com/privacy
+- Privacy: https://www.bigmachinerecords.com/privacy
+- Cookie Choices: https://www.bigmachinerecords.com/privacy
 
-### Business Info Confirmed
-- [ ] Address confirmed: [status]
-- [ ] Phone number confirmed: [status]
-- [ ] Email confirmed: [status]
-- [ ] Hours confirmed: [status]
-- [ ] Social profiles confirmed: [status]
+Social links:
+- TikTok: https://www.tiktok.com/@savana_santos
+- Instagram: https://www.instagram.com/savanasantos/
+- YouTube: https://www.youtube.com/channel/UCUxdZbmpZVniUgn0sl6jSjA
+- X: https://x.com/savanasantos
 
-### Integrations
-- [ ] Resend domain verified: [status]
-- [ ] Google Analytics installed: [GA4 ID or N/A]
-- [ ] Google Search Console verified: [status]
-- [ ] Google Business Profile linked: [status]
+No streaming links.
 
-### Blocking Items for Launch
-(List anything that MUST be resolved before the site goes live)
+## Section content notes
+- Hero: full viewport height. Uses the 4 Minutes banner, art-directed so the desktop banner shows on wide screens and the mobile banner shows on narrow screens. The banner art carries the visual. Include a real, accessible H1 for SEO and screen readers even if it is visually hidden.
+- Covers: three covers in this exact order: 4 Minutes, Soulmates (use the SoulmatesCover image, not SoulmatesAlbumCover), Crying On Your Birthday. Arranged like taped-down photos, not a grid. No links for now.
+- About: text only on dark green. Placeholder copy below, replace with label-approved bio before launch.
+- Subscribe: a branded form collecting phone, email, zip code, and country. Connects to Laylo and Mailchimp (wired in a later step). Placeholder copy below.
 
-### Nice-to-Have (Post-Launch)
-(List anything we'd like to add later but isn't blocking launch)
+## Placeholder copy (clearly marked, replace before launch)
+About [PLACEHOLDER, replace with label-approved bio]:
+"savana santos makes songs about the things you'd only admit at 2am. raised in quincy, illinois, now overthinking everything in nashville. she started out in the viral trio avenue beat and has been writing her way out of her feelings ever since."
 
-## Notes
-(Client-specific preferences, special requirements, anything unusual)
+Subscribe [PLACEHOLDER]:
+- Headline: "i'll text you first"
+- Subline: "new music, show announcements, and the occasional oversharing text. drop your info."
+
+## Placeholder log
+1. About bio copy (About section) -- need label-approved bio
+2. Subscribe headline and subline (Subscribe section) -- drafted in her voice, confirm with client
