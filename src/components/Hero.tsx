@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section data-bg="dark" className="bg-dark-green leading-[0]">
+    <section data-bg="dark" aria-label="Hero" className="bg-dark-green leading-[0]">
       <h1 className="sr-only">Savana Santos</h1>
 
       {/* Mobile banner (below 768px) */}

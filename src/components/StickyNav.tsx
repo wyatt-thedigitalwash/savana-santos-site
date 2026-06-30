@@ -33,7 +33,7 @@ export default function StickyNav() {
         <div className="flex items-center justify-center">
           <Image
             src="/logos/SavanaSantos_ColoredLogo.png"
-            alt="Savana Santos"
+            alt="Savana Santos logo"
             width={180}
             height={40}
             className="h-6 w-auto md:h-8"

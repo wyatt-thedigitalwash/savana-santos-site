@@ -19,7 +19,8 @@ const covers = [
 
 export default function Covers() {
   return (
-    <section data-bg="dark" className="bg-dark-green py-20 md:!pt-20 md:pb-28 px-5 md:px-8">
+    <section data-bg="dark" aria-label="Releases" className="bg-dark-green py-20 md:!pt-20 md:pb-28 px-5 md:px-8">
+      <h2 className="sr-only">Releases</h2>
       <div className="flex flex-col items-center gap-14 lg:flex-row lg:justify-center lg:gap-14">
         {covers.map((cover) => (
           <div

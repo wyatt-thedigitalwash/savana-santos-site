@@ -21,7 +21,7 @@ export default function Footer() {
         {/* Logo */}
         <Image
           src="/logos/SavanaSantos_BlackLogo.png"
-          alt="Savana Santos"
+          alt="Savana Santos logo"
           width={180}
           height={40}
           className="h-7 w-auto md:h-9"
@@ -36,9 +36,10 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base text-dark-green transition-colors hover:text-orange"
+                  className="inline-block min-h-[44px] min-w-[44px] leading-[44px] text-base text-dark-green transition-colors hover:text-orange"
                 >
                   {link.label}
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </li>
             ))}
@@ -59,9 +60,10 @@ export default function Footer() {
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-dark-green/50 transition-colors hover:text-orange"
+                  className="inline-block min-h-[44px] leading-[44px] text-sm text-dark-green/65 transition-colors hover:text-orange"
                 >
                   {link.label}
+                  <span className="sr-only"> (opens in new tab)</span>
                 </a>
               </li>
             ))}

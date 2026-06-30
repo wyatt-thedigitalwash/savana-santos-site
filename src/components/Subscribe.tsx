@@ -28,8 +28,11 @@ export default function Subscribe() {
   const [email, setEmail] = useState("");
   const [zip, setZip] = useState("");
   const [country, setCountry] = useState("");
+  const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   function validate(): FieldErrors {
     const errs: FieldErrors = {};
@@ -59,18 +62,54 @@ export default function Subscribe() {
     return errs;
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    setSubmitError("");
     const errs = validate();
     setErrors(errs);
 
-    if (Object.keys(errs).length === 0) {
+    if (Object.keys(errs).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          phone: phone.trim(),
+          email: email.trim(),
+          zip: zip.trim(),
+          country,
+          website,
+        }),
+      });
+
+      if (res.status === 429) {
+        setSubmitError("too many requests. try again in a few minutes.");
+        return;
+      }
+
+      if (res.status === 422) {
+        const data = await res.json();
+        setErrors(data.errors);
+        return;
+      }
+
+      if (!res.ok) {
+        setSubmitError("something went wrong. try again.");
+        return;
+      }
+
       setSubmitted(true);
+    } catch {
+      setSubmitError("something went wrong. try again.");
+    } finally {
+      setSubmitting(false);
     }
   }
 
   return (
-    <section data-bg="dark" className="bg-dark-green py-20 md:py-28 px-5 md:px-8">
+    <section data-bg="dark" aria-label="Subscribe" className="bg-dark-green py-20 md:py-28 px-5 md:px-8">
       <div className="mx-auto max-w-xl text-center">
         <h2 className="font-headline text-orange text-4xl md:text-5xl mb-4">
           i&apos;ll text you first
@@ -81,6 +120,19 @@ export default function Subscribe() {
         </p>
 
         <form onSubmit={handleSubmit} noValidate className="text-left">
+          {/* Honeypot - hidden from humans */}
+          <div className="hidden" aria-hidden="true">
+            <label htmlFor="subscribe-website">Website</label>
+            <input
+              id="subscribe-website"
+              type="text"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-6">
             {/* Phone */}
             <div>
@@ -96,10 +148,14 @@ export default function Subscribe() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+1 (555) 000-0000"
+                maxLength={30}
+                aria-required="true"
+                aria-invalid={!!errors.phone}
+                aria-describedby={errors.phone ? "phone-error" : undefined}
                 className="w-full bg-dark-green border border-cream/40 text-cream placeholder:text-cream/30 px-3 py-2.5 text-base focus:border-orange focus:outline-none transition-colors"
               />
               {errors.phone && (
-                <p className="text-orange text-sm mt-1">{errors.phone}</p>
+                <p id="phone-error" role="alert" className="text-orange text-sm mt-1">{errors.phone}</p>
               )}
             </div>
 
@@ -117,10 +173,14 @@ export default function Subscribe() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
+                maxLength={254}
+                aria-required="true"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? "email-error" : undefined}
                 className="w-full bg-dark-green border border-cream/40 text-cream placeholder:text-cream/30 px-3 py-2.5 text-base focus:border-orange focus:outline-none transition-colors"
               />
               {errors.email && (
-                <p className="text-orange text-sm mt-1">{errors.email}</p>
+                <p id="email-error" role="alert" className="text-orange text-sm mt-1">{errors.email}</p>
               )}
             </div>
 
@@ -138,10 +198,14 @@ export default function Subscribe() {
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
                 placeholder="90210"
+                maxLength={20}
+                aria-required="true"
+                aria-invalid={!!errors.zip}
+                aria-describedby={errors.zip ? "zip-error" : undefined}
                 className="w-full bg-dark-green border border-cream/40 text-cream placeholder:text-cream/30 px-3 py-2.5 text-base focus:border-orange focus:outline-none transition-colors"
               />
               {errors.zip && (
-                <p className="text-orange text-sm mt-1">{errors.zip}</p>
+                <p id="zip-error" role="alert" className="text-orange text-sm mt-1">{errors.zip}</p>
               )}
             </div>
 
@@ -157,6 +221,9 @@ export default function Subscribe() {
                 id="subscribe-country"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
+                aria-required="true"
+                aria-invalid={!!errors.country}
+                aria-describedby={errors.country ? "country-error" : undefined}
                 className="w-full bg-dark-green border border-cream/40 text-cream px-3 py-2.5 text-base focus:border-orange focus:outline-none transition-colors appearance-none"
               >
                 <option value="" disabled className="text-cream/30">
@@ -169,7 +236,7 @@ export default function Subscribe() {
                 ))}
               </select>
               {errors.country && (
-                <p className="text-orange text-sm mt-1">{errors.country}</p>
+                <p id="country-error" role="alert" className="text-orange text-sm mt-1">{errors.country}</p>
               )}
             </div>
           </div>
@@ -178,14 +245,21 @@ export default function Subscribe() {
           <div className="mt-8 flex justify-center">
             <button
               type="submit"
-              className="w-full md:w-full font-subhead bg-dark-green border border-cream text-cream px-8 py-3 text-base transition-colors hover:border-orange hover:text-orange"
+              disabled={submitting}
+              className="w-full md:w-full font-subhead bg-dark-green border border-cream text-cream px-8 py-3 text-base transition-colors hover:border-orange hover:text-orange disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              sign me up
+              {submitting ? "sending..." : "sign me up"}
             </button>
           </div>
 
+          {submitError && (
+            <p role="alert" className="text-orange text-base text-center mt-5">
+              {submitError}
+            </p>
+          )}
+
           {submitted && (
-            <p className="text-cream text-base text-center mt-5">
+            <p role="alert" className="text-cream text-base text-center mt-5">
               you&apos;re in. we&apos;ll be in touch.
             </p>
           )}
